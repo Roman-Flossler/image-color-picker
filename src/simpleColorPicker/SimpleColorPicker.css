@@ -1,0 +1,8 @@
+
+#frame {
+    border: 11px solid #3a444b;;    
+    position: relative;
+    cursor: crosshair;
+    font-size: 0;
+    margin: 50px;
+}
