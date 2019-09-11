@@ -6,8 +6,8 @@
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Simple Color Picker - react component created using create-react-app" />
-  <title>Simple Color Picker</title>
+  <meta name="description" content="Image Color Picker - react component created using create-react-app" />
+  <title>Image Color Picker</title>
 </head>
 
 <body>
@@ -15,12 +15,12 @@
   <div id="root"></div>
   <p style="text-align: center;">
     <br><br>
-    Parameters of Simple Color Picker - a React component: <br><br>
+    Parameters of Image Color Picker - a React component: <br><br>
     <code>
-      &lt;SimpleColorPicker <span>imgUrl</span>={'img.png'} <span>imgSize</span>={[width,height]}
-          <span>radius</span>={number} <span>afterMouseUp</span>={a callback function which gets picked color} <br>
-          <span>afterMouseUpText</span>={'a text to display after a color is picked'} <span>showRGB</span>={true/false -
-          show color's RGB value } &gt;&lt;/SimpleColorPicker&gt;
+      &lt;ImageColorPicker <span>imgUrl</span>={'img.png'} <span>imgSize</span>={[width,height]} <i style="color: rgb(127, 219, 219)">Optional:</i> <i>roundness</i>={number - border radius of the color picker} <br>
+           <i>onColorPicking</i>={callback function which gets a color while picking}  <i>onColorPicked</i>={callback function which gets a picked color} <br>
+          <i>onColorPickedText</i>={'a text to display after a color is picked'} <i>showRGB</i>={true/false -
+          show color's RGB value } &gt;&lt;/ImageColorPicker&gt;
     </code>
 
   </p>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SimpleColorPicker from './simpleColorPicker/SimpleColorPicker';
+import ImageColorPicker from './image-color-picker/ImageColorPicker';
 import './App.css';
 
 class App extends Component {
@@ -23,12 +23,13 @@ changeColor = (color) => {
   render() {
     return (
         <div className="App">
-        <h1 style={{color: this.state.color,  textShadow: '0 0 11px' + this.state.color }} >Simple Color Picker</h1>
+        <h1 style={{color: this.state.color,  textShadow: '0 0 11px' + this.state.color }} >image Color Picker</h1>
           <header className="App-header">            
-            <SimpleColorPicker imgUrl={'rgb.png'} imgSize={[300,300]} radius={200} afterMouseUp={this.changeTitle} afterMouseUpText={'is the new page title'} showRGB={true} >
-            </SimpleColorPicker>
-            <SimpleColorPicker imgUrl={'palette.png'} imgSize={[555,300]} radius={16} afterMouseUp={this.changeColor} afterMouseUpText={''} showRGB={false} >
-            </SimpleColorPicker>
+            <ImageColorPicker imgUrl={'rgb.png'} imgSize={[300,300]} roundness={200} showRGB={true}
+            onColorPicked={this.changeTitle} onColorPickedText={'is the new page title'}  >
+            </ImageColorPicker>
+            <ImageColorPicker imgUrl={'palette.png'} imgSize={[555,300]} onColorPicking={this.changeColor} onColorPicked={this.changeColor} roundness={16} >
+            </ImageColorPicker>
           </header>
         </div>
     );

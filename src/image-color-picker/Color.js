@@ -1,7 +1,7 @@
 import React from 'react';
-import './color.css';
+import './Color.css';
 
-const Color = ({ color, pos, mouseDown, afterMouseUpText, showRGB }) => {
+const Color = ({ color, pos, mouseDown, onColorPickedText, showRGB }) => {
     const pstyle = { left: pos[0]+8, top: pos[1]+8 };
     const ccstyle = { left: pos[0]-9, top: pos[1]-9, background: color };
     const display =  showRGB ? 'show' : 'hide';
@@ -15,7 +15,7 @@ const Color = ({ color, pos, mouseDown, afterMouseUpText, showRGB }) => {
         return (
             <div>
             <div id='pointer' style={ccstyle}></div>
-            <p id='showinfo' style={pstyle} ><span className={display}>{color}</span> {afterMouseUpText} </p>
+            <p id='showinfo' style={pstyle} ><span className={display}>{color}</span> {onColorPickedText} </p>
             </div>);
     } else {
         return (

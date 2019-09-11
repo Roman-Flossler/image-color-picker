@@ -1,10 +1,10 @@
 {
-  "name": "simple-color-picker",
+  "name": "image-color-picker",
   "author": "Roman Flössler",
-  "description": "A react component which was created using create-react-app",
+  "description": "Image color picker picks a color from given image",
   "private": true,
   "version": "1.0.0",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "dependencies": {
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

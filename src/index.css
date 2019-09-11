@@ -13,7 +13,7 @@ code {
   font-family: monospace;
 }
 
-code span {
+code span, code i {
   color: bisque;
 }
 

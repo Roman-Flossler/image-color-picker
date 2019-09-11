@@ -1,9 +1,11 @@
+// Image color Picker created by Roman Flössler - https://github.com/Roman-Flossler
+
 import React, { Component } from 'react';
 import Canvas from './Canvas';
 import Color from './Color';
-import './SimpleColorPicker.css';
+import './ImageColorPicker.css';
 
-class App extends Component {
+class ImageColorPicker extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -20,7 +22,7 @@ class App extends Component {
 
   onMouseUp = () => {
     this.setState({ mouseDown: false });
-    this.props.afterMouseUp(this.state.color);
+    this.props.onColorPicked && this.props.onColorPicked(this.state.color);
   }
 
   getColorPosToState = (e, ctx) => {
@@ -34,17 +36,21 @@ class App extends Component {
   onMouseMove = (e, ctx) => {    
     if (this.state.mouseDown) {
       this.getColorPosToState (e,ctx);
+      this.props.onColorPicking && this.props.onColorPicking(this.state.color);
     }     
   }
 
   render() {    
     return (
-            <div style={{ borderColor: this.state.color, borderRadius: this.props.radius }} id='frame'>
-              <Canvas imgUrl={this.props.imgUrl} imgSize={this.props.imgSize} mouseMove={this.onMouseMove} mouseDown={this.onMouseDown} radius={this.props.radius} mouseUp={this.onMouseUp} ></Canvas>
-              <Color color={this.state.color} pos={this.state.pos} mouseDown={this.state.mouseDown} afterMouseUpText={this.props.afterMouseUpText} showRGB={this.props.showRGB} ></Color>
-            </div>
+      <div style={{ borderColor: this.state.color, borderRadius: this.props.roundness }} id='frame'>
+        <Canvas imgUrl={this.props.imgUrl} imgSize={this.props.imgSize} mouseMove={this.onMouseMove} 
+        mouseDown={this.onMouseDown} roundness={this.props.roundness} mouseUp={this.onMouseUp} ></Canvas>
+        
+        <Color color={this.state.color} pos={this.state.pos} mouseDown={this.state.mouseDown} 
+        onColorPickedText={this.props.onColorPickedText} showRGB={this.props.showRGB} ></Color>
+      </div>
     );
   }
 }
 
-export default App;
+export default ImageColorPicker;
