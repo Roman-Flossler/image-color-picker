@@ -9,12 +9,18 @@ body {
 }
 
 code {
-  font-size: 100%;
-  font-family: monospace;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  font-family: Consolas, source-code-pro, Menlo, Monaco, "Courier New", monospace;
+  line-height: 1.5em;
 }
 
 code span, code i {
   color: bisque;
+}
+
+code a {
+  color: #87c1c1;
 }
 
 html {
