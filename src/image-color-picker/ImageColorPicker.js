@@ -11,21 +11,25 @@ class ImageColorPicker extends Component {
     this.state = {
       color: '',
       pos: [props.imgSize[0]/3-20, props.imgSize[1]/2-20],
+      ctx: null,
       mouseDown: undefined
     }
   }
 
-  updateColor = (pos, ctx) => {
-    const imgData = ctx.getImageData(pos[0], pos[1], 1, 1);
-      this.setState({
-        color: 'rgb(' + imgData.data[0] + ', ' + imgData.data[1] + ', ' + imgData.data[2] + ')'
-      });
+  getCtx = (ctx) => {
+    this.setState({ ctx: ctx });    
   }
 
-  onMouseDown = (e) => {    
+  getColor = (x,y) => {
+    const imgData = this.state.ctx.getImageData(x, y, 1, 1);
+    return 'rgb(' + imgData.data[0] + ', ' + imgData.data[1] + ', ' + imgData.data[2] + ')';
+  }
+
+  onMouseDown = (e) => {
     this.setState({  
       pos: [e.nativeEvent.offsetX, e.nativeEvent.offsetY],
-      mouseDown: true
+      mouseDown: true,
+      color: this.getColor(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
     });    
   }
 
@@ -37,7 +41,8 @@ class ImageColorPicker extends Component {
   onMouseMove = (e) => {    
     if (this.state.mouseDown) {
       this.setState({  
-        pos: [e.nativeEvent.offsetX, e.nativeEvent.offsetY]
+        pos: [e.nativeEvent.offsetX, e.nativeEvent.offsetY],
+        color: this.getColor(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
       });
       this.props.onColorPicking && this.props.onColorPicking(this.state.color);
     }     
@@ -46,7 +51,7 @@ class ImageColorPicker extends Component {
   render() {
     return (
       <div style={{ borderColor: this.state.color, borderRadius: this.props.roundness }} id='frame' >
-        <Canvas imgUrl={this.props.imgUrl} imgSize={this.props.imgSize} roundness={this.props.roundness} pos={this.state.pos} updateColor={this.updateColor} ></Canvas>
+        <Canvas imgUrl={this.props.imgUrl} imgSize={this.props.imgSize} roundness={this.props.roundness} pos={this.state.pos} getCtx={this.getCtx} ></Canvas>
         
         <Color color={this.state.color} pos={this.state.pos} mouseDown={this.state.mouseDown} 
         onColorPickedText={this.props.onColorPickedText} showRGB={this.props.showRGB} width={this.props.imgSize[0]} ></Color>

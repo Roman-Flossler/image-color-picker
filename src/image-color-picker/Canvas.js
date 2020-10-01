@@ -8,29 +8,25 @@ class Canvas extends React.Component {
     const img = new Image();
     img.src = this.props.imgUrl;
     img.onload = () => {
-      this.ctx.drawImage(img, 0, 0)  
-    }    
+      this.ctx.drawImage(img, 0, 0);
+    } 
+    this.props.getCtx(this.ctx);
   }
-
-  // After a mouse position update the Canvas component updates a color
-  // While the color is read from the canvas, the position is read from the Div.
-  // This is because of ability to move by color circle across the image.
+  
+  // render is called only when the canvas image will change (url, size). 
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.pos !== this.props.pos) {
-      this.props.updateColor(nextProps.pos, this.ctx)      
-    }
-    if (this.props.imgUrl !== nextProps.imgUrl || this.props.imgSize !== nextProps.imgSize ) {
+    if (this.props.imgUrl !== nextProps.imgUrl || this.props.imgSize[0] !== nextProps.imgSize[0] || this.props.imgSize[1] !== nextProps.imgSize[1] ) {
+      this.props.getCtx(this.ctx);
       return true;
     } else {
       return false;
     }
-
   }
 
   render() {
+    console.log('canvasing')
     return (
-      <canvas ref="canvas" style={{borderRadius:this.props.roundness-13}}
-      // onMouseMove={(event) => { this.props.mouseMove(event, this.ctx) }} 
+      <canvas ref="canvas" style={{borderRadius:this.props.roundness-13}} 
       width={this.props.imgSize[0]} height={this.props.imgSize[1]} />
     );
   }
