@@ -12,7 +12,7 @@ class App extends Component {
 
 
 changeTitle = (color) => {
-  document.title = ' » ' + color;
+  document.title = ' 🎨 ' + color;
 }
 
 changeColor = (color) => {
