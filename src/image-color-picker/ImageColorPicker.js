@@ -51,7 +51,7 @@ class ImageColorPicker extends Component {
   render() {
     return (
       <div style={{ borderColor: this.state.color, borderRadius: this.props.roundness }} id='frame' >
-        <Canvas imgUrl={this.props.imgUrl} imgSize={this.props.imgSize} roundness={this.props.roundness} pos={this.state.pos} getCtx={this.getCtx} ></Canvas>
+        <Canvas imgUrl={this.props.imgUrl} sizeX={this.props.imgSize[0]} sizeY={this.props.imgSize[1]} roundness={this.props.roundness} getCtx={this.getCtx} ></Canvas>
         
         <Color color={this.state.color} pos={this.state.pos} mouseDown={this.state.mouseDown} 
         onColorPickedText={this.props.onColorPickedText} showRGB={this.props.showRGB} width={this.props.imgSize[0]} ></Color>
