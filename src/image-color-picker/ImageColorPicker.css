@@ -3,7 +3,7 @@
     border: 11px solid #3a444b;;    
     position: relative;    
     font-size: 0;
-    margin: 50px;
+    margin: 50px 50px 25px 50px;
 }
 
 #mousecatcher {
@@ -13,4 +13,9 @@
     top: 0;
     left: 0;
     z-index: 2;
+}
+
+input[type='file'] {
+    margin: auto;
+    filter: invert(1);
 }

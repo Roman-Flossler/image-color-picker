@@ -25,10 +25,11 @@ changeColor = (color) => {
         <div className="App">
         <h1 style={{color: this.state.color,  textShadow: '0 0 11px' + this.state.color }} >image Color Picker</h1>
           <header className="App-header">            
-            <ImageColorPicker imgUrl={'rgb.png'} imgSize={[300,300]} roundness={200} showRGB={true}
-            onColorPicked={this.changeTitle} onColorPickedText={'is the new page title'}  >
+            <ImageColorPicker imgUrl={'rgb.png'} pickerMaxSize={[300,300]} roundness={200} showRGB={true}
+                              onColorPicked={this.changeTitle} onColorPickedText={'is the new page title'}  >
             </ImageColorPicker>
-            <ImageColorPicker imgUrl={'palette.png'} imgSize={[555,300]} onColorPicking={this.changeColor} onColorPicked={this.changeColor} roundness={16} >
+            <ImageColorPicker selectImgButton={true} imgUrl={'palette.png'} pickerMaxSize={[555,300]} onColorPicking={this.changeColor} 
+                              onColorPicked={this.changeColor} roundness={16} >
             </ImageColorPicker>
           </header>
         </div>

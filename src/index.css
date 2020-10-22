@@ -29,22 +29,16 @@ html {
 }
 
 html ::-webkit-scrollbar {
-  background: #0e0e0e;
-  /* prev #191919; */
+  background: #1b1b1b;  
   width: 9px;
 }
 
-html ::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 3px;
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.75);
+html ::-webkit-scrollbar-thumb {  
   background: #505050;
-  background-size: 100%;
-  margin-top: 6px;
-  min-height: 81px;
 }
 
-html ::-webkit-scrollbar-button {
-  height: 20px;
-  background: black;
-  height: 2px;
+html ::-webkit-scrollbar-button {  
+  background: #505050;
+  border-radius: 10px;
+  height: 10px;
 }

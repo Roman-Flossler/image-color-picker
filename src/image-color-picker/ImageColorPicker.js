@@ -10,10 +10,12 @@ class ImageColorPicker extends Component {
     super(props)
     this.state = {
       color: '',
-      pos: [props.imgSize[0]/3-20, props.imgSize[1]/2-20],
+      pos: [props.pickerMaxSize[0]/3-20, props.pickerMaxSize[1]/2-20],
       ctx: null,
-      mouseDown: undefined
+      mouseDown: undefined,
+      img: undefined
     }
+    this.fileInp = React.createRef();
   }
 
   getCtx = (ctx) => {
@@ -48,16 +50,30 @@ class ImageColorPicker extends Component {
     }     
   }
 
+  onFileChange = () => {
+    let img = new Image();
+    img.onload = () => {
+      this.setState( {img: img} )    
+    }
+    if (this.fileInp.current.files[0]) {
+      img.src = URL.createObjectURL(this.fileInp.current.files[0]);
+    }
+  }
+
   render() {
     return (
+      <div>
       <div style={{ borderColor: this.state.color, borderRadius: this.props.roundness }} id='frame' >
-        <Canvas imgUrl={this.props.imgUrl} sizeX={this.props.imgSize[0]} sizeY={this.props.imgSize[1]} roundness={this.props.roundness} getCtx={this.getCtx} ></Canvas>
+        <Canvas img={this.state.img} imgUrl={this.props.imgUrl} sizeX={this.props.pickerMaxSize[0]} sizeY={this.props.pickerMaxSize[1]} 
+                roundness={this.props.roundness} getCtx={this.getCtx} ></Canvas>
         
         <Color color={this.state.color} pos={this.state.pos} mouseDown={this.state.mouseDown} 
-        onColorPickedText={this.props.onColorPickedText} showRGB={this.props.showRGB} width={this.props.imgSize[0]} ></Color>
+        onColorPickedText={this.props.onColorPickedText} showRGB={this.props.showRGB} width={this.props.pickerMaxSize[0]} ></Color>
         
         <div id='mousecatcher' onMouseMove={ this.onMouseMove } onMouseDown={this.onMouseDown}  onMouseUp={ this.onMouseUp }
         style={ { borderRadius: this.props.roundness-13, cursor: this.state.mouseDown ? 'none' : 'default'  }} ></div>
+      </div>
+      <input ref={this.fileInp} type="file" onChange={this.onFileChange} style={this.props.selectImgButton ? { display:'block' } : { display:'none' } }></input>
       </div>
     );
   }
