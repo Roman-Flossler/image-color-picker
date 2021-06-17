@@ -11,8 +11,7 @@ h1 {
   text-align: center;
 }
 
-.App-header {  
-  min-height: 400px;
+.App-header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,3 +20,14 @@ h1 {
   color: white;
 }
 
+@media (max-width: 888px) {
+  .App-header {   
+    flex-direction: column-reverse;
+  }
+
+  h1 {
+    font-size: 15vw;  
+    margin:  3vh 0;
+  }
+  
+}

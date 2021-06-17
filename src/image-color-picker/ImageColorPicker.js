@@ -13,9 +13,10 @@ class ImageColorPicker extends Component {
       pos: [props.pickerMaxSize[0]/3-20, props.pickerMaxSize[1]/2-20],
       ctx: null,
       mouseDown: undefined,
-      img: undefined
+      loadedImg: undefined
     }
     this.fileInp = React.createRef();
+    this.touchCatcher = React.createRef();
   }
 
   getCtx = (ctx) => {
@@ -49,14 +50,38 @@ class ImageColorPicker extends Component {
       this.props.onColorPicking && this.props.onColorPicking(this.state.color);
     }     
   }
+  
+  onTouchMove = (e) => {    
+    e.preventDefault();    
+    let bcr = e.target.getBoundingClientRect();
+    let x = e.targetTouches[0].clientX - bcr.x;
+    let y = e.targetTouches[0].clientY - bcr.y;
+    x = x < 0 ? 0 : x;
+    y = y < 0 ? 0 : y;
+    x = x > bcr.width-1 ? bcr.width-1 : x;
+    y = y > bcr.height-1 ? bcr.height-1 : y;
+    this.setState({
+        pos: [ x , y],
+        mouseDown: true,
+        color: this.getColor(x, y)
+      });
+    this.props.onColorPicking && this.props.onColorPicking(this.state.color);
+  }
+
+  componentDidMount() {
+    this.touchCatcher.current.addEventListener('touchmove', this.onTouchMove, { passive: false });
+  }  
+  componentWillUnmount() {
+    this.touchCatcher.current.removeEventListener('touchmove', this.onTouchMove);
+  }
 
   onFileChange = () => {
-    let img = new Image();
-    img.onload = () => {
-      this.setState( {img: img} )    
+    let loadedImg = new Image();
+    loadedImg.onload = () => {
+      this.setState( {loadedImg: loadedImg} )    
     }
     if (this.fileInp.current.files[0]) {
-      img.src = URL.createObjectURL(this.fileInp.current.files[0]);
+      loadedImg.src = URL.createObjectURL(this.fileInp.current.files[0]);
     }
   }
 
@@ -64,13 +89,13 @@ class ImageColorPicker extends Component {
     return (
       <div>
       <div style={{ borderColor: this.state.color, borderRadius: this.props.roundness }} id='frame' >
-        <Canvas img={this.state.img} imgUrl={this.props.imgUrl} sizeX={this.props.pickerMaxSize[0]} sizeY={this.props.pickerMaxSize[1]} 
+        <Canvas loadedImg={this.state.loadedImg} imgUrl={this.props.imgUrl} sizeX={this.props.pickerMaxSize[0]} sizeY={this.props.pickerMaxSize[1]} 
                 roundness={this.props.roundness} getCtx={this.getCtx} ></Canvas>
         
         <Color color={this.state.color} pos={this.state.pos} mouseDown={this.state.mouseDown} 
         onColorPickedText={this.props.onColorPickedText} showRGB={this.props.showRGB} width={this.props.pickerMaxSize[0]} ></Color>
         
-        <div id='mousecatcher' onMouseMove={ this.onMouseMove } onMouseDown={this.onMouseDown}  onMouseUp={ this.onMouseUp }
+        <div id='mousecatcher'  ref={this.touchCatcher} onMouseMove={ this.onMouseMove } onMouseDown={this.onMouseDown}  onMouseUp={ this.onMouseUp } onTouchEnd={ this.onMouseUp }
         style={ { borderRadius: this.props.roundness-13, cursor: this.state.mouseDown ? 'none' : 'default'  }} ></div>
       </div>
       <input ref={this.fileInp} type="file" onChange={this.onFileChange} style={this.props.selectImgButton ? { display:'block' } : { display:'none' } }></input>
