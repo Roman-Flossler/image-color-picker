@@ -43,11 +43,12 @@ class ImageColorPicker extends Component {
 
   onMouseMove = (e) => {    
     if (this.state.mouseDown) {
+      let color = this.getColor(e.nativeEvent.offsetX, e.nativeEvent.offsetY) 
       this.setState({  
         pos: [e.nativeEvent.offsetX, e.nativeEvent.offsetY],
-        color: this.getColor(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+        color: color
       });
-      this.props.onColorPicking && this.props.onColorPicking(this.state.color);
+      this.props.onColorPicking && this.props.onColorPicking(color);
     }     
   }
   
@@ -60,12 +61,13 @@ class ImageColorPicker extends Component {
     y = y < 0 ? 0 : y;
     x = x > bcr.width-1 ? bcr.width-1 : x;
     y = y > bcr.height-1 ? bcr.height-1 : y;
+    let color = this.getColor(x, y); 
     this.setState({
         pos: [ x , y],
         mouseDown: true,
-        color: this.getColor(x, y)
+        color: color
       });
-    this.props.onColorPicking && this.props.onColorPicking(this.state.color);
+    this.props.onColorPicking && this.props.onColorPicking(color);
   }
 
   componentDidMount() {
